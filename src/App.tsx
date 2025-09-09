@@ -1,6 +1,6 @@
 import HomeStore from "./pages/HomeStore.tsx";
-import Login from "./pages/Login.tsx";
-import Register from "./pages/Register.tsx";
+import SignIn from "./pages/SignIn.tsx";
+import SignUp from "./pages/SignUp.tsx";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -8,8 +8,8 @@ function App() {
     return (
         <Routes>
             <Route path="/" element={<HomeStore />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/signIn" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
         </Routes>
     );
 }

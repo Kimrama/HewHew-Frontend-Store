@@ -6,7 +6,7 @@ export default function HomeStore() {
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (!token) {
-            navigate("/login");
+            navigate("/signin");
         }
     }, [navigate]);
 
