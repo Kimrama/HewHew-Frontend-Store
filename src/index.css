@@ -1,3 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "flyonui" {
+    themes: light --default, dark --prefersdark, gourmet;
+}
+@source "./node_modules/flyonui/dist/index.js";
+@import "flyonui/variants.css";
+@plugin "@iconify/tailwind4";
+@import "flyonui/src/vendor/notyf.css";
+
+/* #root {
+    background-color: 3f3f3;
+} */
