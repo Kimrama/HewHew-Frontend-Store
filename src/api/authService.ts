@@ -8,11 +8,21 @@ export interface LoginResponse {
     token: string;
 }
 
+export interface RegisterFormRequest {
+    username: string;
+    password: string;
+    fname: string;
+    lname: string;
+}
+export interface RegisterResponse {
+    message: string;
+}
+
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-export const login = async (payload: LoginRequest): Promise<LoginResponse> => {
+export async function login(payload: LoginRequest): Promise<LoginResponse> {
     const { data } = await axios.post<LoginResponse>(
-        `${BASE_URL}/v1/user/login`,
+        `${BASE_URL}/v1/admin/login`,
         payload,
         {
             headers: {
@@ -21,4 +31,14 @@ export const login = async (payload: LoginRequest): Promise<LoginResponse> => {
         }
     );
     return data;
-};
+}
+
+export async function register(
+    payload: RegisterFormRequest
+): Promise<RegisterResponse> {
+    const { data } = await axios.postForm<RegisterResponse>(
+        `${BASE_URL}/v1/admin/register`,
+        payload
+    );
+    return data;
+}
