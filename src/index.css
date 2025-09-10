@@ -1,12 +1,14 @@
 @import "tailwindcss";
-@plugin "flyonui" {
-    themes: light --default, dark --prefersdark, gourmet;
-}
-@source "./node_modules/flyonui/dist/index.js";
+@import "flyonui/src/vendor/notyf.css";
 @import "flyonui/variants.css";
 @plugin "@iconify/tailwind4";
-@import "flyonui/src/vendor/notyf.css";
+@plugin "flyonui" {
+    themes: light --default, dark --prefersdark, mintlify;
+}
+@source "./node_modules/flyonui/dist/index.js";
 
-/* #root {
-    background-color: 3f3f3;
-} */
+/* เพิ่มตรงนี้ */
+@theme {
+    --font-sans: Inter, sans-serif;
+    --font-thai: Prompt, sans-serif;
+}
