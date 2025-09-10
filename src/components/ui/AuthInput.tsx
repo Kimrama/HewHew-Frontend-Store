@@ -15,7 +15,7 @@ export default function AuthInput({
     ...props
 }: AuthInputProps) {
     return (
-        <div className="w-md mb-8">
+        <div className="w-md mt-8">
             <label className="label-text" htmlFor={id}>
                 {label}
             </label>
