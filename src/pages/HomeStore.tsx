@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import default_image from "../assets/default-featured-image.jpg";
 import SettingSwitches from "../components/ui/SettingSwitch";
 import { Pencil } from "lucide-react";
+import { getStore } from "../api/store";
 
 export default function HomeStore() {
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [storeName, setStoreName] = useState<string | null>(null);
+    const [canteen, setCanteen] = useState<string | null>(null);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -17,6 +19,16 @@ export default function HomeStore() {
             setIsAuthenticated(true);
         }
     }, [navigate]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const store = await getStore();
+            console.log(store);
+            setStoreName(store.name);
+            setCanteen(store.canteen_name);
+        };
+        fetchData();
+    }, []);
 
     if (!isAuthenticated) {
         return null;
@@ -33,10 +45,16 @@ export default function HomeStore() {
                 <div className="flex flex-col justify-between w-full">
                     <div>
                         <h1 className="text-6xl font-semibold font-thai mb-8">
-                            ชื่อร้าน: [ยังไม่ระบุ]
+                            ชื่อร้าน:{" "}
+                            {storeName === "Default Shop Name"
+                                ? "[ยังไม่ระบุ]"
+                                : storeName}
                         </h1>
                         <h2 className="text-4xl font-semibold font-thai">
-                            โรงอาหาร: [ยังไม่ระบุ]
+                            โรงอาหาร:{" "}
+                            {canteen === "Default Canteen"
+                                ? "[ยังไม่ระบุ]"
+                                : canteen}
                         </h2>
                     </div>
                     <div className="flex justify-between items-center w-full">

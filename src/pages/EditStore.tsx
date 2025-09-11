@@ -2,20 +2,25 @@ import { Save, X } from "lucide-react";
 import default_image from "../assets/default-featured-image.jpg";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
+import { set } from "react-hook-form";
 
 export default function EditStore() {
     const navigate = useNavigate();
     const [preview, setPreview] = useState<string>(default_image);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [file, setFile] = useState<File | null>(null);
+    const [storeName, setStoreName] = useState<string>("");
+    const [canteen, setCanteen] = useState<string>("");
 
     function handleImageClick() {
-        fileInputRef.current?.click(); // กด img → เปิด file dialog
+        fileInputRef.current?.click();
     }
 
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const file = e.target.files?.[0];
-        if (file) {
-            const url = URL.createObjectURL(file); // แปลงไฟล์เป็น object URL
+        const selectedFile = e.target.files?.[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+            const url = URL.createObjectURL(selectedFile);
             setPreview(url);
         }
     }
