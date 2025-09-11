@@ -24,9 +24,7 @@ export default function SignIn() {
             .then((response) => {
                 notyf.success("\nLogin successful!\n");
                 localStorage.setItem("token", response.token);
-                setTimeout(() => {
-                    window.location.href = "/";
-                }, 2000);
+                window.location.href = "/";
             })
             .catch((error) => {
                 console.error("Login failed:", error);

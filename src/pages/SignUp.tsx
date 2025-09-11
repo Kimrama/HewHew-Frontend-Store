@@ -6,6 +6,7 @@ import {
     register as auth_register,
     type RegisterFormRequest,
 } from "../api/authService";
+import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 const notyf = new Notyf({
@@ -40,6 +41,7 @@ export default function SignUp() {
         showValidatePasswordMatchStrong,
         setShowValidatePasswordMatchStrong,
     ] = useState(false);
+    const navigate = useNavigate();
 
     function onSubmit(data: SignUpProps) {
         console.log(data);
@@ -67,12 +69,13 @@ export default function SignUp() {
         auth_register(registerForm)
             .then((response) => {
                 notyf.success("Sign Up successful!");
-                console.log(response);
                 reset();
+                navigate("/auth/signin");
             })
             .catch((error) => {
-                notyf.error("Sign Up failed. Please try again.");
-                console.error(error);
+                notyf.error(
+                    `Sign Up failed. Please try again. error: ${error}`
+                );
             })
             .finally(() => {
                 setCreatingUser(false);

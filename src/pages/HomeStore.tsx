@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import default_image from "../assets/default-featured-image.jpg";
 import SettingSwitches from "../components/ui/SettingSwitch";
+import { Pencil } from "lucide-react";
 
 export default function HomeStore() {
     const navigate = useNavigate();
@@ -39,8 +40,15 @@ export default function HomeStore() {
                         </h2>
                     </div>
                     <div className="flex justify-between items-center w-full">
-                        <SettingSwitches label="เปิดการมองเห็นร้านค้า" />
-                        <button className="btn btn-outline btn-primary">
+                        <SettingSwitches
+                            label="เปิดการมองเห็นร้านค้า"
+                            description="ทำให้ลูกค้ามองเห็นร้านนี้"
+                        />
+                        <button
+                            className="btn btn-outline btn-primary"
+                            onClick={() => navigate("/edit-store")}
+                        >
+                            <Pencil />
                             แก้ไขข้อมูลร้าน
                         </button>
                     </div>

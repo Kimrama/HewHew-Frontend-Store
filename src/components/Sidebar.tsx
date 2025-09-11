@@ -12,7 +12,9 @@ export default function Sidebar() {
         >
             <div className="flex items-center justify-between p-4 border-b border-gray-300">
                 {!isCollapsed && (
-                    <h2 className="text-lg font-bold">HewHew - Store</h2>
+                    <h2 className="text-lg font-bold fixed left-16">
+                        HewHew - Store
+                    </h2>
                 )}
                 <button onClick={() => setIsCollapsed(!isCollapsed)}>
                     {isCollapsed ? (
@@ -30,21 +32,18 @@ export default function Sidebar() {
                         className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200"
                     >
                         <Home size={20} />
-                        {!isCollapsed && <span>Home</span>}
-                    </Link>
-                    <Link
-                        to="/profile"
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200"
-                    >
-                        <User size={20} />
-                        {!isCollapsed && <span>Profile</span>}
+                        {!isCollapsed && (
+                            <span className="fixed left-16">Home</span>
+                        )}
                     </Link>
                     <Link
                         to="/menu"
                         className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200"
                     >
                         <Utensils size={20} />
-                        {!isCollapsed && <span>Menu</span>}
+                        {!isCollapsed && (
+                            <span className="fixed left-16">Menu</span>
+                        )}
                     </Link>
                 </div>
 
@@ -64,7 +63,9 @@ export default function Sidebar() {
                         className="flex items-center gap-2 px-4 py-2 w-full hover:bg-gray-200"
                     >
                         <LogOut size={20} />
-                        {!isCollapsed && <span>Logout</span>}
+                        {!isCollapsed && (
+                            <span className="fixed left-16">Logout</span>
+                        )}
                     </button>
                 </div>
             </nav>

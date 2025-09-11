@@ -23,7 +23,7 @@ export default function SettingsSwitches({
                 />
                 <label
                     htmlFor="switchStateSuccess2"
-                    className="label-text cursor-pointer flex flex-col justify-center"
+                    className="label-text cursor-pointer flex flex-col justify-center "
                 >
                     <span className="text-base">{label}</span>
                     <span>{description}</span>
