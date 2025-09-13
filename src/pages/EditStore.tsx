@@ -1,17 +1,48 @@
 import { Save, X } from "lucide-react";
 import default_image from "../assets/default-featured-image.jpg";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
-import { set } from "react-hook-form";
+import { useState, useRef, useEffect } from "react";
+import {
+    editStore,
+    getCanteenList,
+    getStore,
+    uploadStoreImage,
+    type Canteen,
+} from "../api/store";
 
 export default function EditStore() {
     const navigate = useNavigate();
     const [preview, setPreview] = useState<string>(default_image);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [file, setFile] = useState<File | null>(null);
+    const [imageFile, setImageFile] = useState<File | null>(null);
     const [storeName, setStoreName] = useState<string>("");
     const [canteen, setCanteen] = useState<string>("");
+    const [canteenList, setCanteenList] = useState<Canteen[]>([]);
+    const [openStatus, setOpenStatus] = useState<boolean>(true);
 
+    useEffect(() => {
+        async function fetchStore() {
+            try {
+                const store = await getStore();
+                setStoreName(store.name);
+                setCanteen(store.canteen_name);
+                setOpenStatus(store.state);
+            } catch (error) {
+                console.error("Error fetching store:", error);
+            }
+        }
+        async function fetchCanteens() {
+            try {
+                const response = await getCanteenList();
+                setCanteenList(response.canteens);
+                console.log(response.canteens);
+            } catch (error) {
+                console.error("Error fetching canteens:", error);
+            }
+        }
+        fetchStore();
+        fetchCanteens();
+    }, []);
     function handleImageClick() {
         fileInputRef.current?.click();
     }
@@ -19,10 +50,30 @@ export default function EditStore() {
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         const selectedFile = e.target.files?.[0];
         if (selectedFile) {
-            setFile(selectedFile);
+            setImageFile(selectedFile);
             const url = URL.createObjectURL(selectedFile);
             setPreview(url);
         }
+    }
+
+    async function submitEditStore() {
+        const payload = { shop_name: storeName, canteen_name: canteen };
+        if (imageFile) {
+            try {
+                const response = await uploadStoreImage({ file: imageFile });
+                console.log(response);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        editStore(payload)
+            .then((res) => {
+                console.log(res);
+                navigate("/");
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     }
 
     return (
@@ -53,6 +104,8 @@ export default function EditStore() {
                                 type="text"
                                 placeholder="Type here"
                                 className="input max-w-sm text-6xl h-full font-thai"
+                                value={storeName}
+                                onChange={(e) => setStoreName(e.target.value)}
                             />
                         </div>
                         <div className="flex items-center gap-4 mb-8">
@@ -62,14 +115,20 @@ export default function EditStore() {
                             <select
                                 className="select max-w-sm appearance-none font-thai text-4xl"
                                 aria-label="select"
+                                value={canteen}
+                                onChange={(e) => {
+                                    setCanteen(e.target.value);
+                                    console.log(canteen);
+                                }}
                             >
-                                <option disabled selected>
-                                    เลือกโรงอาหาร
-                                </option>
-                                <option>โรงอาหาร 1</option>
-                                <option>โรงอาหาร 2</option>
-                                <option>โรงอาหาร 3</option>
-                                <option>โรงอาหาร 4</option>
+                                {canteenList.map((canteen) => (
+                                    <option
+                                        key={canteen.CanteenName}
+                                        value={canteen.CanteenName}
+                                    >
+                                        {canteen.CanteenName}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -83,7 +142,7 @@ export default function EditStore() {
                         </button>
                         <button
                             className="btn btn-primary ml-4"
-                            onClick={() => navigate("/edit-store")}
+                            onClick={submitEditStore}
                         >
                             <Save />
                             บันทึก

@@ -3,13 +3,15 @@ import { useState } from "react";
 interface SettingsSwitchesProps {
     label?: string;
     description?: string;
+    onChange?: () => void;
 }
 
 export default function SettingsSwitches({
     label,
     description,
+    onChange,
 }: SettingsSwitchesProps) {
-    const [darkMode, setDarkMode] = useState(true);
+    const [state, setState] = useState(true);
 
     return (
         <div className="space-y-4">
@@ -18,8 +20,10 @@ export default function SettingsSwitches({
                     type="checkbox"
                     id="switchStateSuccess2"
                     className="switch switch-outline switch-primary is-valid mt-2"
-                    checked={darkMode}
-                    onChange={(e) => setDarkMode(e.target.checked)}
+                    checked={state}
+                    onChange={(e) => {
+                        setState(e.target.checked);
+                    }}
                 />
                 <label
                     htmlFor="switchStateSuccess2"
