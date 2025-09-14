@@ -25,11 +25,13 @@ export interface Store {
     state: boolean;
     shopimg: string | null;
 }
+
 export interface Canteen {
     CanteenName: string;
     Latitude: string;
     Longitude: string;
 }
+
 export interface CanteenListResponse {
     canteens: Canteen[];
 }

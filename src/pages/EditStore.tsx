@@ -18,15 +18,16 @@ export default function EditStore() {
     const [storeName, setStoreName] = useState<string>("");
     const [canteen, setCanteen] = useState<string>("");
     const [canteenList, setCanteenList] = useState<Canteen[]>([]);
-    const [openStatus, setOpenStatus] = useState<boolean>(true);
 
     useEffect(() => {
         async function fetchStore() {
             try {
                 const store = await getStore();
                 setStoreName(store.name);
-                setCanteen(store.canteen_name);
-                setOpenStatus(store.state);
+                if (store.canteen_name !== "Default Canteen") {
+                    setCanteen(store.canteen_name);
+                }
+                console.log(canteen);
             } catch (error) {
                 console.error("Error fetching store:", error);
             }
@@ -35,7 +36,6 @@ export default function EditStore() {
             try {
                 const response = await getCanteenList();
                 setCanteenList(response.canteens);
-                console.log(response.canteens);
             } catch (error) {
                 console.error("Error fetching canteens:", error);
             }
@@ -103,7 +103,7 @@ export default function EditStore() {
                             <input
                                 type="text"
                                 placeholder="Type here"
-                                className="input max-w-sm text-6xl h-full font-thai"
+                                className="input text-6xl w-[75%] h-full font-thai"
                                 value={storeName}
                                 onChange={(e) => setStoreName(e.target.value)}
                             />
@@ -113,7 +113,7 @@ export default function EditStore() {
                                 โรงอาหาร:
                             </h2>
                             <select
-                                className="select max-w-sm appearance-none font-thai text-4xl"
+                                className="select w-[50%] appearance-none font-thai text-4xl"
                                 aria-label="select"
                                 value={canteen}
                                 onChange={(e) => {
@@ -121,6 +121,11 @@ export default function EditStore() {
                                     console.log(canteen);
                                 }}
                             >
+                                {canteen.length === 0 && (
+                                    <option disabled value="">
+                                        -- เลือกโรงอาหาร --
+                                    </option>
+                                )}
                                 {canteenList.map((canteen) => (
                                     <option
                                         key={canteen.CanteenName}

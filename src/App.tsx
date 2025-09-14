@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp.tsx";
 import EditStore from "./pages/EditStore.tsx";
 
 import { Routes, Route } from "react-router-dom";
+import Menu from "./pages/Menu.tsx";
 
 function App() {
     return (
@@ -30,6 +31,14 @@ function App() {
                 element={
                     <MainLayout>
                         <EditStore />
+                    </MainLayout>
+                }
+            />
+            <Route
+                path="/menu"
+                element={
+                    <MainLayout>
+                        <Menu />
                     </MainLayout>
                 }
             />
