@@ -1,18 +1,21 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, ChevronLeft, Home, User, LogOut, Utensils } from "lucide-react";
+import { Menu, ChevronLeft, Home, LogOut, Utensils } from "lucide-react";
 
-export default function Sidebar() {
-    const [isCollapsed, setIsCollapsed] = useState(true);
-
+export default function Sidebar({
+    isCollapsed,
+    setIsCollapsed,
+}: {
+    isCollapsed: boolean;
+    setIsCollapsed: (value: boolean) => void;
+}) {
     return (
         <div
-            className={`fixed top-0 left-0 h-screen bg-white text-gray-800 transition-all duration-100 
-  ${isCollapsed ? "w-16" : "w-64"}`}
+            className={`h-screen bg-white text-gray-800 transition-all duration-300
+            ${isCollapsed ? "w-16" : "w-64"}`}
         >
             <div className="flex items-center justify-between p-4 border-b border-gray-300">
                 {!isCollapsed && (
-                    <h2 className="text-lg font-bold fixed left-16">
+                    <h2 className="text-lg font-bold whitespace-nowrap overflow-hidden transition-all duration-300">
                         HewHew - Store
                     </h2>
                 )}
@@ -32,18 +35,24 @@ export default function Sidebar() {
                         className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200"
                     >
                         <Home size={20} />
-                        {!isCollapsed && (
-                            <span className="fixed left-16">Home</span>
-                        )}
+                        <span
+                            className={`whitespace-nowrap overflow-hidden transition-all duration-300 
+    ${isCollapsed ? "opacity-0 max-w-0" : "opacity-100 max-w-[200px]"}`}
+                        >
+                            Home
+                        </span>
                     </Link>
                     <Link
                         to="/menu"
                         className="flex items-center gap-2 px-4 py-2 hover:bg-gray-200"
                     >
                         <Utensils size={20} />
-                        {!isCollapsed && (
-                            <span className="fixed left-16">Menu</span>
-                        )}
+                        <span
+                            className={`whitespace-nowrap overflow-hidden transition-all duration-300 
+    ${isCollapsed ? "opacity-0 max-w-0" : "opacity-100 max-w-[200px]"}`}
+                        >
+                            Menu
+                        </span>
                     </Link>
                 </div>
 
@@ -56,16 +65,17 @@ export default function Sidebar() {
                             if (isConfirm) {
                                 localStorage.removeItem("token");
                                 window.location.href = "/auth/signin";
-                            } else {
-                                return;
                             }
                         }}
                         className="flex items-center gap-2 px-4 py-2 w-full hover:bg-gray-200"
                     >
                         <LogOut size={20} />
-                        {!isCollapsed && (
-                            <span className="fixed left-16">Logout</span>
-                        )}
+                        <span
+                            className={`whitespace-nowrap overflow-hidden transition-all duration-300 
+    ${isCollapsed ? "opacity-0 max-w-0" : "opacity-100 max-w-[200px]"}`}
+                        >
+                            Logout
+                        </span>
                     </button>
                 </div>
             </nav>

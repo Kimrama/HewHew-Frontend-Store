@@ -9,7 +9,6 @@ interface SettingsSwitchesProps {
 export default function SettingsSwitches({
     label,
     description,
-    onChange,
 }: SettingsSwitchesProps) {
     const [state, setState] = useState(true);
 

@@ -23,8 +23,10 @@ export default function EditStore() {
         async function fetchStore() {
             try {
                 const store = await getStore();
-                setStoreName(store.name);
-                if (store.canteen_name !== "Default Canteen") {
+                if (store.name !== "Null") {
+                    setStoreName(store.name);
+                }
+                if (store.canteen_name !== "Null") {
                     setCanteen(store.canteen_name);
                 }
                 console.log(canteen);

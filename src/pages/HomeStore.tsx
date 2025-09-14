@@ -58,8 +58,8 @@ export default function HomeStore() {
     }
 
     return (
-        <div className="flex h-screen flex-col p-8">
-            <div className="flex mt-8 gap-12 bg-white p-8 rounded-lg shadow-lg">
+        <div className="flex h-screen p-8">
+            <div className="flex w-full mt-8 h-fit gap-12 bg-white p-8 rounded-lg shadow-lg">
                 <img
                     className="size-72 object-cover shadow-lg rounded-lg"
                     src={storeImage}
@@ -69,15 +69,11 @@ export default function HomeStore() {
                     <div>
                         <h1 className="text-6xl font-semibold font-thai mb-8">
                             ชื่อร้าน:{" "}
-                            {storeName === "Default Shop Name"
-                                ? "[ยังไม่ระบุ]"
-                                : storeName}
+                            {storeName === "Null" ? "[ยังไม่ระบุ]" : storeName}
                         </h1>
                         <h2 className="text-4xl font-semibold font-thai">
                             โรงอาหาร:{" "}
-                            {canteen === "Default Canteen"
-                                ? "[ยังไม่ระบุ]"
-                                : canteen}
+                            {canteen === "Null" ? "[ยังไม่ระบุ]" : canteen}
                         </h2>
                     </div>
                     <div className="flex justify-between items-center w-full">
