@@ -7,16 +7,16 @@ export default function MenuCard({ menu }: { menu: MenuItem }) {
     const navigate = useNavigate();
     return (
         <div className="card sm:card-side mb-8 w-full bg-neutral-50">
-            <figure className="h-64 w-full sm:h-auto sm:w-48">
+            <figure className="object-cover w-2/5">
                 <img
                     src={menu.ImageURL || default_image}
-                    alt="headphone"
-                    className="h-full w-full object-cover"
+                    // alt="headphone"
+                    className="object-cover w-4xl"
                 />
             </figure>
-            <div className="card-body">
+            <div className="card-body w-full">
                 <h5 className="card-title mb-0.5">{menu.Name}</h5>
-                <p className="mb-2">{menu.Detail}</p>
+                <p className="mb-2 line-clamp-4">{menu.Detail}</p>
                 <div className="card-actions flex justify-between items-center">
                     <SettingsSwitches
                         label="เปิดให้มองเห็น"

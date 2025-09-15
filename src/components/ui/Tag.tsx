@@ -13,8 +13,8 @@ export default function Tag({ tag, selectTag }: TagProps) {
     }
     return (
         <span
-            className={`badge rounded-sm user-select-none cursor-pointer transition-colors ${
-                isSelected ? "" : "badge-outline"
+            className={`badge rounded-sm user-select-none select-none cursor-pointer transition-colors duration-300 ${
+                isSelected ? " bg-black text-white" : "bg-white text-black"
             }`}
             onClick={handleClick}
         >
