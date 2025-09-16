@@ -9,6 +9,7 @@ import {
     uploadStoreImage,
     type Canteen,
 } from "../api/store";
+import AdvanceSelect from "../components/Selection";
 
 export default function EditStore() {
     const navigate = useNavigate();
@@ -29,7 +30,6 @@ export default function EditStore() {
                 if (store.canteen_name !== "Null") {
                     setCanteen(store.canteen_name);
                 }
-                console.log(canteen);
             } catch (error) {
                 console.error("Error fetching store:", error);
             }
@@ -105,7 +105,7 @@ export default function EditStore() {
                             <input
                                 type="text"
                                 placeholder="Type here"
-                                className="input text-6xl w-[75%] h-full font-thai"
+                                className="input text-6xl w-[75%] h-full font-thai rounded border-1 border-black focus:outline-none focus:ring-offset-2 focus:ring-primary bg-white"
                                 value={storeName}
                                 onChange={(e) => setStoreName(e.target.value)}
                             />
@@ -114,8 +114,8 @@ export default function EditStore() {
                             <h2 className="text-4xl font-semibold font-thai">
                                 โรงอาหาร:
                             </h2>
-                            <select
-                                className="select w-[50%] appearance-none font-thai text-4xl"
+                            {/* <select
+                                className="select w-[50%] appearance-none font-thai text-4xl "
                                 aria-label="select"
                                 value={canteen}
                                 onChange={(e) => {
@@ -136,7 +136,12 @@ export default function EditStore() {
                                         {canteen.CanteenName}
                                     </option>
                                 ))}
-                            </select>
+                            </select> */}
+                            <AdvanceSelect
+                                options={canteenList.map((c) => c.CanteenName)}
+                                defaultValue={canteen}
+                                onChange={setCanteen}
+                            />
                         </div>
                     </div>
                     <div className="flex justify-end items-center w-full">

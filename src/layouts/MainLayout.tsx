@@ -14,7 +14,7 @@ export default function MainLayout({
                 isCollapsed={isCollapsed}
                 setIsCollapsed={setIsCollapsed}
             />
-            <main className={`w-full transition-all duration-300 ml-16`}>
+            <main className={`w-full transition-all duration-300 `}>
                 {children}
             </main>
         </div>
