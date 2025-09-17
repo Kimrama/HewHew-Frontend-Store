@@ -7,6 +7,7 @@ import {
 } from "../api/menu";
 import Tag from "../components/ui/Tag";
 import MenuCard from "../components/Menucard.tsx";
+import { Plus } from "lucide-react";
 
 export default function Menu() {
     const [tags, setTags] = useState<TagItem[]>([]);
@@ -46,20 +47,30 @@ export default function Menu() {
     return (
         <div className="flex h-screen">
             <div className="flex flex-col flex-1 p-4">
-                <div className="flex justify-center">
-                    <div className="input input-lg flex max-w-[75%] space-x-4">
-                        <span className="icon-[tabler--search] text-base-content/80 my-auto size-6 shrink-0"></span>
-                        <input
-                            type="search"
-                            className="grow"
-                            placeholder="Search"
-                            id="kbdInput"
-                            value={searchTerm}
-                            onChange={(e) => handleSearchChange(e.target.value)}
-                        />
-                        <label className="sr-only" htmlFor="kbdInput">
-                            Search
-                        </label>
+                <div className="flex justify-center items-center space-x-4">
+                    <div className="flex w-[72%]">
+                        <div className="input input-lg flex space-x-4">
+                            <span className="icon-[tabler--search] text-base-content/80 my-auto size-6 shrink-0"></span>
+                            <input
+                                type="search"
+                                className="grow"
+                                placeholder="Search"
+                                id="kbdInput"
+                                value={searchTerm}
+                                onChange={(e) =>
+                                    handleSearchChange(e.target.value)
+                                }
+                            />
+                            <label className="sr-only" htmlFor="kbdInput">
+                                Search
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <button className="btn btn-primary w-52 h-11">
+                            <Plus className="mr-2 " />
+                            สร้างเมนูใหม่
+                        </button>
                     </div>
                 </div>
                 <div className="overflow-y-auto mt-4">

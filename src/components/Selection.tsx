@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 
 interface SelectionProps {
     options?: string[];
@@ -21,7 +21,6 @@ export default function Selection({
 
     return (
         <div className="relative w-[30%]">
-            {/* toggle */}
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
@@ -31,7 +30,6 @@ export default function Selection({
                 <span className="icon-[tabler--caret-up-down] shrink-0 size-4 text-base-content absolute top-1/2 right-3 -translate-y-1/2"></span>
             </button>
 
-            {/* dropdown list */}
             {isOpen && (
                 <div className="absolute z-10 mt-1 w-full border rounded bg-white shadow">
                     {options.map((opt) => (

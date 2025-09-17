@@ -23,7 +23,7 @@ export default function MenuCard({ menu }: { menu: MenuItem }) {
                         description="ทำให้ผู้ใช้สามารถมองเห็นอาหารนี้ได้"
                     />
                     <button
-                        className="btn btn-outline btn-primary"
+                        className="btn btn-outline btn-warning"
                         onClick={() => navigate("/edit-store")}
                     >
                         <Pencil />
