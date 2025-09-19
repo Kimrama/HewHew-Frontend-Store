@@ -43,3 +43,5 @@ export async function getTagList(): Promise<TagListResponse> {
     );
     return data;
 }
+
+export async function createTag(): Promise;

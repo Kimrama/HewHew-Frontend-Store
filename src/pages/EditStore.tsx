@@ -104,7 +104,7 @@ export default function EditStore() {
                             </h1>
                             <input
                                 type="text"
-                                placeholder="Type here"
+                                placeholder="ใส่ชื่อร้าน"
                                 className="input text-6xl w-[75%] h-full font-thai rounded border-1 border-black focus:outline-none focus:ring-offset-2 focus:ring-primary bg-white"
                                 value={storeName}
                                 onChange={(e) => setStoreName(e.target.value)}

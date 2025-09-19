@@ -8,12 +8,16 @@ import {
 import Tag from "../components/ui/Tag";
 import MenuCard from "../components/Menucard.tsx";
 import { Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Menu() {
     const [tags, setTags] = useState<TagItem[]>([]);
     const [selectedTagList, setSelectedTagList] = useState<TagItem[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [menus, setMenus] = useState<MenuItem[]>([]);
+
+    const navigate = useNavigate();
+
     useEffect(() => {
         async function fetchTags() {
             const data = await getTagList();
@@ -67,7 +71,10 @@ export default function Menu() {
                         </div>
                     </div>
                     <div>
-                        <button className="btn btn-primary w-52 h-11">
+                        <button
+                            className="btn btn-primary w-52 h-11"
+                            onClick={() => navigate("/create-menu")}
+                        >
                             <Plus className="mr-2 " />
                             สร้างเมนูใหม่
                         </button>

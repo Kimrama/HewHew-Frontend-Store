@@ -1,10 +1,10 @@
-import Sidebar from "./components/Sidebar.tsx";
 import AuthLayout from "./layouts/AuthLayout.tsx";
 import MainLayout from "./layouts/MainLayout.tsx";
 import HomeStore from "./pages/HomeStore.tsx";
 import SignIn from "./pages/SignIn.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import EditStore from "./pages/EditStore.tsx";
+import CreateMenu from "./pages/CreateMenu.tsx";
 
 import { Routes, Route } from "react-router-dom";
 import Menu from "./pages/Menu.tsx";
@@ -39,6 +39,14 @@ function App() {
                 element={
                     <MainLayout>
                         <Menu />
+                    </MainLayout>
+                }
+            />
+            <Route
+                path="/create-menu"
+                element={
+                    <MainLayout>
+                        <CreateMenu />
                     </MainLayout>
                 }
             />
