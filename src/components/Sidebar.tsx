@@ -10,7 +10,7 @@ export default function Sidebar({
 }) {
     return (
         <div
-            className={`h-screen bg-white text-gray-800 transition-all duration-300
+            className={`fixed top-0 left-0 h-screen bg-white text-gray-800 transition-all duration-300
             ${isCollapsed ? "w-16" : "w-64"}`}
         >
             <div className="flex items-center justify-between p-4 border-b border-gray-300">
