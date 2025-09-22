@@ -1,22 +1,18 @@
-import { useState, useEffect } from "react";
-import { getTagList, type Tag as TagItem } from "../api/menu";
-import Tag from "./ui/Tag";
+import { useState } from "react";
 
-export default function AddTagModal() {
+interface AddTagModalProps {
+    onAddTag: (topic: string) => void;
+}
+
+export default function AddTagModal({ onAddTag }: AddTagModalProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const [allTags, setAllTags] = useState<TagItem[]>([]);
+    const [topic, setTopic] = useState("");
 
-    useEffect(() => {
-        async function fetchTags() {
-            try {
-                const data = await getTagList();
-                setAllTags(data.tags);
-            } catch (error) {
-                console.error("Error fetching tags:", error);
-            }
-        }
-        fetchTags();
-    }, []);
+    function addTagHandler() {
+        onAddTag(topic);
+        setTopic("");
+        setIsOpen(false);
+    }
 
     return (
         <div className="">
@@ -46,21 +42,24 @@ export default function AddTagModal() {
                                     type="text"
                                     placeholder="ชื่อหมวดหมู่"
                                     className="input text-3xl w-full h-full font-thai rounded border-1 border-black focus:outline-none focus:ring-offset-2 focus:ring-primary bg-white"
-                                    // value={storeName}
-                                    // onChange={(e) => setStoreName(e.target.value)}
+                                    value={topic}
+                                    onChange={(e) => setTopic(e.target.value)}
                                 />
                             </div>
                         </div>
                         <div className="flex justify-end gap-2">
                             <button
                                 className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
-                                onClick={() => setIsOpen(false)}
+                                onClick={() => {
+                                    setIsOpen(false);
+                                    setTopic("");
+                                }}
                             >
                                 ยกเลิก
                             </button>
                             <button
                                 className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
-                                onClick={() => alert("Confirmed!")}
+                                onClick={addTagHandler}
                             >
                                 ยืนยัน
                             </button>

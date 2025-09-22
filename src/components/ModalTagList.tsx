@@ -2,8 +2,19 @@ import { useState, useEffect } from "react";
 import { getTagList, type Tag as TagItem } from "../api/menu";
 import Tag from "./ui/Tag";
 import AddTagModal from "./AddTagModal";
+import { deleteTag, createTag } from "../api/menu";
 
-export default function ModalTagList() {
+interface ModalTagListProps {
+    handleTagSelect: (tag: TagItem) => void;
+    tagSelected: TagItem[];
+    onDeleteTagUpdate?: (tags: TagItem[]) => void;
+}
+
+export default function ModalTagList({
+    handleTagSelect,
+    tagSelected,
+    onDeleteTagUpdate,
+}: ModalTagListProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [allTags, setAllTags] = useState<TagItem[]>([]);
 
@@ -18,6 +29,32 @@ export default function ModalTagList() {
         }
         fetchTags();
     }, []);
+
+    function onDeleteTag(tagId: string) {
+        try {
+            deleteTag(tagId);
+            if (onDeleteTagUpdate) {
+                onDeleteTagUpdate(
+                    allTags.filter((tag) => tag.TagID.toString() !== tagId)
+                );
+            }
+            setAllTags((prev) =>
+                prev.filter((tag) => tag.TagID.toString() !== tagId)
+            );
+        } catch (error) {
+            console.error("Error deleting tag:", error);
+        }
+    }
+    async function onAddTag(topic: string) {
+        try {
+            const data = await createTag(topic);
+            const newTag: TagItem = { TagID: data.tag.TagID, Topic: topic };
+            console.log(newTag);
+            setAllTags((prev) => [...prev, newTag]);
+        } catch (error) {
+            console.error("Error creating tag:", error);
+        }
+    }
     return (
         <div className="">
             <button
@@ -36,33 +73,33 @@ export default function ModalTagList() {
 
                     <div className="relative bg-white rounded shadow-lg w-146 p-6 z-10">
                         <div>
-                            <h2 className="text-4xl mb-4 font-thai">
+                            <h2 className="text-4xl font-thai">
                                 เลือกหมวดหมู่
                             </h2>
+                            <p className="text-gray-400">เลือกได้ 2 หมวดหมู่</p>
                         </div>
-                        <div className="flex flex-wrap gap-2 mb-4 max-h-64 overflow-y-auto">
+                        <div>
+                            <button
+                                className="absolute -top-0 right-4 text-3xl"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                &times;
+                            </button>
+                        </div>
+                        <div className="flex flex-wrap gap-2 mb-4 max-h-64 overflow-y-auto p-5">
                             {allTags.map((tag) => (
                                 <Tag
                                     key={tag.TagID}
                                     tag={tag}
-                                    selectTag={() => {}}
+                                    selectTag={handleTagSelect}
+                                    erasable={true}
+                                    onDelete={() =>
+                                        onDeleteTag(tag.TagID.toString())
+                                    }
+                                    tagSelected={tagSelected}
                                 />
                             ))}
-                            <AddTagModal />
-                        </div>
-                        <div className="flex justify-end gap-2">
-                            <button
-                                className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                ยกเลิก
-                            </button>
-                            <button
-                                className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
-                                onClick={() => alert("Confirmed!")}
-                            >
-                                ยืนยัน
-                            </button>
+                            <AddTagModal onAddTag={onAddTag} />
                         </div>
                     </div>
                 </div>
