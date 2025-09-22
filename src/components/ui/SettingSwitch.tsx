@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface SettingsSwitchesProps {
     label?: string;
     description?: string;
     onChange?: () => void;
+    defState: boolean;
 }
 
 export default function SettingsSwitches({
     label,
     description,
+    defState,
 }: SettingsSwitchesProps) {
-    const [state, setState] = useState(true);
+    const [state, setState] = useState<boolean>(false);
 
+    useEffect(() => {
+        setState(defState);
+    }, []);
     return (
         <div className="space-y-4">
             <div className="flex  gap-3 items-center">
