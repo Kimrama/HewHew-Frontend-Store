@@ -6,12 +6,12 @@ import { Pencil } from "lucide-react";
 export default function MenuCard({ menu }: { menu: MenuItem }) {
     const navigate = useNavigate();
     return (
-        <div className="card sm:card-side mb-8 w-full bg-neutral-50">
-            <figure className="object-cover w-2/5">
+        <div className="card sm:card-side w-full bg-neutral-50">
+            <figure className="w-2/5 h-full overflow-hidden">
                 <img
                     src={menu.ImageURL || default_image}
-                    // alt="headphone"
-                    className="object-cover w-4xl"
+                    className="w-full h-full object-cover"
+                    alt={menu.Name}
                 />
             </figure>
             <div className="card-body w-full">
@@ -21,6 +21,7 @@ export default function MenuCard({ menu }: { menu: MenuItem }) {
                     <SettingsSwitches
                         label="เปิดให้มองเห็น"
                         description="ทำให้ผู้ใช้สามารถมองเห็นอาหารนี้ได้"
+                        defState={menu.Status === "available" ? true : false}
                     />
                     <button
                         className="btn btn-outline btn-warning"
