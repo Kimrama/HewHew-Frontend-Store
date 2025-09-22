@@ -35,13 +35,15 @@ export default function Menu() {
         fetchTags();
         fetchMenus();
     }, []);
-    function handleTagClick(tagId: string) {
-        const tag = tags.find((t) => t.TagID.toString() === tagId) || null;
-        if (tag === null) return;
-        if (selectedTagList.includes(tag)) {
-            setSelectedTagList((prev) => prev.filter((t) => t !== tag));
-        } else if (tag) {
-            setSelectedTagList((prev) => [...prev, tag]);
+    function handleTagClick(tag: TagItem) {
+        const foundTag =
+            tags.find((t) => t.TagID.toString() === tag.TagID.toString()) ||
+            null;
+        if (foundTag === null) return;
+        if (selectedTagList.includes(foundTag)) {
+            setSelectedTagList((prev) => prev.filter((t) => t !== foundTag));
+        } else if (foundTag) {
+            setSelectedTagList((prev) => [...prev, foundTag]);
         }
     }
     function handleSearchChange(searchTermInp: string) {
@@ -51,8 +53,8 @@ export default function Menu() {
     return (
         <div className="flex h-screen">
             <div className="flex flex-col flex-1 p-4">
-                <div className="flex justify-center items-center space-x-4">
-                    <div className="flex w-[72%]">
+                <div className="flex justify-between mx-32 mb-4">
+                    <div className="flex w-[85%]">
                         <div className="input input-lg flex space-x-4">
                             <span className="icon-[tabler--search] text-base-content/80 my-auto size-6 shrink-0"></span>
                             <input
@@ -70,25 +72,23 @@ export default function Menu() {
                             </label>
                         </div>
                     </div>
-                    <div>
-                        <button
-                            className="btn btn-primary w-52 h-11"
-                            onClick={() => navigate("/create-menu")}
-                        >
-                            <Plus className="mr-2 " />
-                            สร้างเมนูใหม่
-                        </button>
-                    </div>
+                    <button
+                        className="btn btn-primary w-[14%] h-11"
+                        onClick={() => navigate("/create-menu")}
+                    >
+                        <Plus className="mr-2 " />
+                        สร้างเมนูใหม่
+                    </button>
                 </div>
-                <div className="overflow-y-auto mt-4">
-                    <div className="m-8 flex flex-wrap gap-4 w-[75%] mx-auto">
-                        {tags.map((tag) => (
-                            <div key={tag.TagID}>
-                                <Tag tag={tag} selectTag={handleTagClick} />
-                            </div>
-                        ))}
-                    </div>
-                    <div className="grid grid-cols-2 gap-6 p-8">
+                <div className="flex flex-wrap gap-4 mx-32 mb-8">
+                    {tags.map((tag) => (
+                        <div key={tag.TagID}>
+                            <Tag tag={tag} selectTag={handleTagClick} />
+                        </div>
+                    ))}
+                </div>
+                <div className="overflow-y-auto">
+                    <div className="grid grid-cols-2 gap-6 m-8">
                         {menus
                             .filter((menu) => {
                                 const matchesSearchTerm =
